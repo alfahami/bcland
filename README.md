@@ -1,2 +1,2 @@
 # bctitres
-Gestion des titres dans la blockchain
+Gestion des titres fonciers dans la blockchain

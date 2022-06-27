@@ -1,7 +1,7 @@
 {
     "name": "titrecontract",
     "version": "1.0.0",
-    "description": "TitreContact contract implemented in JavaScript",
+    "description": "Titre contract implemented in JavaScript",
     "main": "index.js",
     "engines": {
         "node": ">=12",

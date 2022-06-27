@@ -1,4 +1,5 @@
 /*
+ * Copyright IBM Corp. All Rights Reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -18,9 +19,9 @@ class TitreContract extends Contract {
                 cin: 'MA2150124K',
                 address: '132 Rue 2 Hay Maamora Kenitra',
                 email: 'zineb.ghayyaty@gmail.com ',
-                index: '41',
+                indice: '41',
                 city_fonc: 'Kenitra',
-                special_index: 'BIS'
+                special_indice: 'BIS',
                 
             },
             {
@@ -29,9 +30,9 @@ class TitreContract extends Contract {
                 cin: 'MA215457JK',
                 address: '132 Rue 2 Hay Saknia Kenitra',
                 email: 'mehdi.ghayyaty@gmail.com ',
-                index: '45',
+                indice: '45',
                 city_fonc: 'Kenitra',
-                special_index: 'BIS1'
+                special_indice: 'BIS1',
                 
             },
             {
@@ -40,9 +41,9 @@ class TitreContract extends Contract {
                 cin: 'MA214788M',
                 address: '8 Rue 2 Era Fes',
                 email: 'il.moh@gmail.com ',
-                index: '43',
+                indice: '43',
                 city_fonc: 'Meknes',
-                special_index: 'BIS3'
+                special_indice: 'BIS3',
                 
             },
             {
@@ -51,9 +52,9 @@ class TitreContract extends Contract {
                 cin: 'MA457154P',
                 address: 'Rue 7 Hay Annaim Sale',
                 email: 'souf.mtery@gmail.com ',
-                index: '53',
+                indice: '53',
                 city_fonc: 'Safi',
-                special_index: 'BIS4'
+                special_indice: 'BIS4',
                 
             },
             {
@@ -62,9 +63,9 @@ class TitreContract extends Contract {
                 cin: 'MA412357PM',
                 address: '7E Rue Al Karaouine, Fes',
                 email: 'irchad.ayouby@gmail.com ',
-                index: 'K',
+                indice: 'K',
                 city_fonc: 'Kenitra',
-                special_index: 'BIS5'
+                special_indice: 'BIS5',
                 
             },
             {
@@ -73,9 +74,9 @@ class TitreContract extends Contract {
                 cin: 'MA2204578JH',
                 address: '70 AV Rachad Narjis, Kenitra',
                 email: 'soukaina.mahamat@gmail.com ',
-                index: '4F',
+                indice: '4F',
                 city_fonc: 'Beni Melal',
-                special_index: 'BIS6'
+                special_indice: 'BIS6',
                 
             },
             {
@@ -84,9 +85,9 @@ class TitreContract extends Contract {
                 cin: 'MA85461OP',
                 address: '12 Rue AV Alizee, Maamora Kenitra',
                 email: 'aya.samadi@gmail.com ',
-                index: '41F',
+                indice: '41F',
                 city_fonc: 'Rabat',
-                special_index: 'BIS7'
+                special_indice: 'BIS7',
                 
             },
             {
@@ -95,9 +96,9 @@ class TitreContract extends Contract {
                 cin: 'MA2612458YK',
                 address: '12e Rue Hay Rais, Tanger',
                 email: 'mourad.said@gmail.com ',
-                index: '51J',
+                indice: '51J',
                 city_fonc: 'Marrakech',
-                special_index: 'BIS8'
+                special_indice: 'BIS8',
                 
             },
             {
@@ -106,9 +107,9 @@ class TitreContract extends Contract {
                 cin: 'MA2045132KM',
                 address: 'Rue 5 Maarif Marrakech',
                 email: 'hiba.jeon@gmail.com ',
-                index: '27L',
+                indice: '27L',
                 city_fonc: 'Fes',
-                special_index: 'BIS9'
+                special_indice: 'BIS9'
                 
             }
         ];
@@ -121,7 +122,7 @@ class TitreContract extends Contract {
         console.info('============= END : Initialize Ledger ===========');
     }
 
-    async queryTitres(ctx, titreNumber) {
+    async queryTitre(ctx, titreNumber) {
         const titreAsBytes = await ctx.stub.getState(titreNumber); // get the titre from chaincode state
         if (!titreAsBytes || titreAsBytes.length === 0) {
             throw new Error(`${titreNumber} does not exist`);
@@ -130,7 +131,7 @@ class TitreContract extends Contract {
         return titreAsBytes.toString();
     }
 
-    async createTitre(ctx, titreNumber, fullName, cin, address, email, index, city_fonc, special_fonc) {
+    async createTitre(ctx, titreNumber, fullName, cin, address, email, indice, city_fonc, special_indice) {
         console.info('============= START : Create Titre ===========');
 
         const titre = {
@@ -139,13 +140,13 @@ class TitreContract extends Contract {
             cin,
             address,
             email,
-            index,
+            indice,
             city_fonc,
-            special_fonc,
+            special_indice
         };
 
         await ctx.stub.putState(titreNumber, Buffer.from(JSON.stringify(titre)));
-        console.info('============= END : Create titre ===========');
+        console.info('============= END : Create Titre ===========');
     }
 
     async queryAllTitres(ctx) {
@@ -167,18 +168,18 @@ class TitreContract extends Contract {
         return JSON.stringify(allResults);
     }
 
-    async changeOwnerName(ctx, titreNumber, newName) {
-        console.info('============= START : changeOwnerName ===========');
+    async changeTitreOwner(ctx, titreNumber, newOwner) {
+        console.info('============= START : changeTitreOwner ===========');
 
         const titreAsBytes = await ctx.stub.getState(titreNumber); // get the titre from chaincode state
         if (!titreAsBytes || titreAsBytes.length === 0) {
             throw new Error(`${titreNumber} does not exist`);
         }
         const titre = JSON.parse(titreAsBytes.toString());
-        titre.fullName = newName;
+        titre.fullName = newOwner;
 
         await ctx.stub.putState(titreNumber, Buffer.from(JSON.stringify(titre)));
-        console.info('============= END : changeOwnerName ===========');
+        console.info('============= END : changeTitreOwner ===========');
     }
 
 }

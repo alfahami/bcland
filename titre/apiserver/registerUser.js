@@ -55,7 +55,7 @@ async function main() {
         });
         const x509Identity = {
             credentials: {
-                titre: enrollment.titre,
+                certificate: enrollment.certificate,
                 privateKey: enrollment.key.toBytes(),
             },
             mspId: 'Org1MSP',

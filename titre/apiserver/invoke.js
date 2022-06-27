@@ -35,18 +35,23 @@ async function main() {
         const network = await gateway.getNetwork('mychannel');
 
         // Get the contract from the network.
-        const contract = network.getContract('titre');
+        const contract = network.getContract('titrecontract');
 
         // Submit the specified transaction.
-        // This transaction create TITRE30 in the ledger
-         await contract.submitTransaction('createTitre', 'TITRE30', 'ABDILLAH CHERGANI', '1857469MA', '12 Rue DesGaulles Kenitra', '41F', 'Meknes', 'BIS10');
-        console.log('Transaction has been submitted');
+        // createCertificate transaction - requires 9 argument, ex: ('createCertificate', 'CERT12', 'ABDEL', '1857469', 'NBE388507', '05/08/1999', 'NADOR', 'MASTER RH', 'A. Bien', '07/07/2021')
 
-        // const response = await contract.submitTransaction('queryTitre', 'TITRE3');
-        // console.log('Transaction has been submitted');
-        // console.log(`Transaction has been evaluated, result is: ${response.toString()}`);
+        // changeStudentName transaction - requires 2 args , ex: ('changeCarOwner', 'CERT12', 'Dave')
+        //await contract.submitTransaction('createTitre', 'TITRE30', 'Ibn Tofail', 'MA124567PO', '136 Rue 2 Hay Najah', 'ibntofail@gmail.com', '41', 'Kenitra', 'BIS');
+        //await contract.submitTransaction('initLedger',[])
+        const response = await contract.submitTransaction('queryTitre','TITRE8');
+        console.log(`Transaction has been evaluated, result is: ${response.toString()}`);
+         //console.log('Transaction has been submitted');
 
-        // const response = await contract.submitTransaction('changeOwnerName', 'TITRE5', 'MACRON');
+         //const response = await contract.submitTransaction('changeTitreOwner', 'TITRE8', 'Thug Behram');
+         //console.log('Transaction has been submitted');
+        //console.log(`Transaction has been evaluated, result is: ${response.toString()}`);
+
+        // const response = await contract.submitTransaction('changeStudentName', 'CERT2', 'MACRON');
         // console.log('Transaction has been submitted');
         //console.log(`Transaction has been evaluated, result is: ${response.toString()}`);
         

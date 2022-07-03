@@ -1,63 +1,83 @@
 doctype html
 head
-  meta(charset='UTF-8')
-  meta(http-equiv='X-UA-Compatible' content='IE=edge')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title AJOUT D'UN TITRE | BCTITRE
-
-  style 
-    include public/css/addtitre.css
-
-
-  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css')
-
-  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css')
-
-  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js')
-
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-
-
-.container.register
-  .row
-    .col-md-3.register-left
-      img(src='https://image.ibb.co/n7oTvU/logo_white.png' alt='')
-      h5 AJOUTER MULTIPLES TITRE EN UN CLICK
-      p  Imprter un fichier excel list(.xls) en cliquant sur le boutton import 
-      form.file-input(action="/api/preview_excel_data" method="POST", enctype="multipart/form-data")
-        .form-group
-        label(for='xls')
-        input#my_file_input.form-control-file(type='file', name="file")
-        input.btnRegister(type='submit' class="btn btn-success" value='add all')
-      br
-      a(class="btn btn-success" href="/api/alltitres/") tous les titres
-
-
-    .col-md-9.register-right
-      #myTabContent.tab-content
-        #home.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='home-tab')
-          h3.register-heading AJOUT D'UN SEUL TITRE
-          form#contactForm.mb-5(method='POST' action="/api/addtitre")
-            .row.register-form
-              .col-md-6
-                .form-group
-                  input.form-control(type='text' placeholder='Numero titre*' name='titreNumber')
-                .form-group
-                  input.form-control(type='text' placeholder='Nom et prénom *' name='fullName')
-                .form-group
-                  input.form-control(type='text' placeholder='CIN *' name='cin')
-                .form-group
-                  input.form-control(type='text' placeholder='ADDRESSE *' name='address')
-              .col-md-6
-                .form-group
-                  input.form-control(type='text' placeholder='Email *' name='email')
-                .form-group
-                  input.form-control(type='text' name='indice' placeholder='Indice *')
-                .form-group
-                  input.form-control(type='text' name='city_fonc' placeholder='Conservation Foncière *')
-                .form-group
-                  input.form-control(type='text' name='special_indice' placeholder='Indice Spéciale *')
-                input.btnRegister(type='submit' class="btn btn-success" value='Ajouter')
-
-                
-
+  // Required meta tags
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  link(rel='preconnect' href='https://fonts.googleapis.com')
+  link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+  link(href='https://fonts.googleapis.com/css2?family=PT+Serif&display=swap' rel='stylesheet')
+  // Bootstrap CSS
+  link(rel='stylesheet' href='/static/css/bootstrap.min.css')
+  // Style
+  link(rel='stylesheet' href='/static/css/style.css')
+  title Ajout d&apos;un titre
+.content
+  .container.mt-5
+    .row.justify-content-center
+      .col-md-10
+        .row.justify-content-center
+          .col-md-6
+            .bordered
+              p.lead
+                | Ajouter une liste de titres en important un fichier excel
+                span.icon-hand-down
+              form(action="/api/preview_excel_data" method="POST", enctype="multipart/form-data")
+                input#my_file_input.form-control-file(type='file', name="file")
+                input.btn.btn-success.right(type='submit' value='Valider')
+              .clearfix  
+            .center.m-4
+              a.btn.btn-success(href='/api/alltitres') Liste des titres ajout&eacute;s
+            h4.heading.mb-4.mt-4 Demande d&apos;ajout re&ccedil;ues
+            p
+              | Vous n&apos;avez pas encore re&ccedil;u de demande
+          .col-md-6
+            h5.heading.mb-4 Informations personelle
+            form#contactForm.mb-5(method='POST' action="/api/addtitre")
+              .row
+                .col-md-12.form-group
+                  input#name.form-control(type='text' name='fullName' placeholder='Nom et prénom')
+              .row
+                .col-md-12.form-group
+                  input#name.form-control(type='text' name='cin' placeholder='CIN')
+              .row
+                .col-md-12.form-group
+                  input#address.form-control(type='text' name='address' placeholder='Adresse')
+              .row
+                .col-md-12.form-group
+                  input#email.form-control(type='email' name='email' placeholder='Email')
+              h5.heading.mb-4 Informations sur le titre foncier
+              .row
+                .col-md-12.form-group
+                  input#number.form-control(type='text' name='titreNumber' placeholder='Numéro du titre')
+              .row
+                .col-md-12.form-group
+                    select.form-select-sm(name='city_fonc')
+                      option(value='') Conservation Foncière
+                      option(value='Kenitra') Kenitra
+                      option(value='Fes') Fes
+                      option(value='Rabat') Rabat
+                      option(value='Tanger') Tanger  
+              .row
+                .col-md-12.form-group
+                   select.form-select-sm(name='indice')
+                      option(value='') Indice
+                      option(value='07') 07
+                      option(value='F') F
+                      option(value='41') 41
+                      option(value='K') K
+              .row
+                .col-md-12.form-group
+                   select.form-select-sm(name='special_indice')
+                      option(value='') Indice Spécial
+                      option(value='Bis') BIS
+                      option(value='BIS1') BIS1
+                      option(value='BIS2') BIS2
+                      option(value='BIS3') BIS
+              .row
+                .col-12
+                  input.btn.btn-success.rounded-0.py-2.px-2.right(type='submit' value='Valider')
+                  span.submitting
+script(src='static/js/jquery-3.3.1.min.js')
+script(src='static/js/bootstrap.min.js')
+script(src='static/js/jquery.validate.min.js')
+script(src='static/js/main.js')

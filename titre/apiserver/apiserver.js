@@ -165,7 +165,7 @@ var storage = multer.diskStorage({ //multers disk storage settings
                                         // createCertificate transaction - requires 8 argument, ex: ('createCertificate', 'CERT12', 'Honda', 'Accord', 'Black', 'Tom')
                                         // changeCarOwner transaction - requires 2 args , ex: ('changeStudentName', 'CERT10', 'HADI')
                                         await contract.submitTransaction('createTitre', item["titreNumber"], item["fullName"], item["cin"], item["address"], item["email"], item["indice"], 
-                                        item["city_fonc"], item["pecial_indice"]);
+                                        item["city_fonc"], item["special_indice"]);
                                         console.log('Transaction has been submitted');
                                        // res.redirect('/api/query/' + req.body.titreNumber)
                                        
@@ -177,6 +177,7 @@ var storage = multer.diskStorage({ //multers disk storage settings
                                         process.exit(1);
                                 }    
                     }
+                    res.redirect('/api/alltitres');
 
                 });
             } catch (e){

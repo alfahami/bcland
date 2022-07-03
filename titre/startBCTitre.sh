@@ -59,8 +59,8 @@ cat <<EOF
 
 Total setup execution time : $(($(date +%s) - starttime)) secs ...
 
-Next, use the BCTitre applications to interact with the deployed titre contract.
-The titre applications are available in multiple programming languages.
+Next, use the BCTitre applications to interact with the deployed Titre contract.
+The Titre applications are available in multiple programming languages.
 Follow the instructions for the programming language of your choice:
 
 JavaScript:
@@ -73,16 +73,16 @@ JavaScript:
 
   Then run the following applications to enroll the admin user, and register a new user
   called appUser which will be used by the other applications to interact with the deployed
-  titre contract:
+  Titre contract:
     node enrollAdmin
     node registerUser
 
   You can run the invoke application as follows. By default, the invoke application will
-  create a new titre, but you can update the application to submit other transactions:
+  create a new Titre, but you can update the application to submit other transactions:
     node invoke
 
   You can run the query application as follows. By default, the query application will
-  return all titres, but you can update the application to evaluate other transactions:
+  return all Titres, but you can update the application to evaluate other transactions:
     node query
 
 TypeScript:
@@ -98,16 +98,16 @@ TypeScript:
 
   Then run the following applications to enroll the admin user, and register a new user
   called appUser which will be used by the other applications to interact with the deployed
-  titre contract:
+  Titre contract:
     node dist/enrollAdmin
     node dist/registerUser
 
   You can run the invoke application as follows. By default, the invoke application will
-  create a new titre, but you can update the application to submit other transactions:
+  create a new Titre, but you can update the application to submit other transactions:
     node dist/invoke
 
   You can run the query application as follows. By default, the query application will
-  return all titres, but you can update the application to evaluate other transactions:
+  return all Titres, but you can update the application to evaluate other transactions:
     node dist/query
 
 Java:
@@ -120,10 +120,10 @@ Java:
 
   The test will invoke the sample client app which perform the following:
     - Enroll admin and appUser and import them into the wallet (if they don't already exist there)
-    - Submit a transaction to create a new titre
-    - Evaluate a transaction (query) to return details of this titre
-    - Submit a transaction to change the owner of this titre
-    - Evaluate a transaction (query) to return the updated details of this titre
+    - Submit a transaction to create a new Titre
+    - Evaluate a transaction (query) to return details of this Titre
+    - Submit a transaction to change the owner of this Titre
+    - Evaluate a transaction (query) to return the updated details of this Titre
 
 Go:
 
@@ -131,13 +131,13 @@ Go:
     cd go
 
   Then, install dependencies and run the test using:
-    go run titre.go
+    go run Titre.go
 
   The test will invoke the sample client app which perform the following:
     - Import user credentials into the wallet (if they don't already exist there)
-    - Submit a transaction to create a new titre
-    - Evaluate a transaction (query) to return details of this titre
-    - Submit a transaction to change the owner of this titre
-    - Evaluate a transaction (query) to return the updated details of this titre
+    - Submit a transaction to create a new Titre
+    - Evaluate a transaction (query) to return details of this Titre
+    - Submit a transaction to change the owner of this Titre
+    - Evaluate a transaction (query) to return the updated details of this Titre
 
 EOF

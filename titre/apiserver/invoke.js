@@ -38,11 +38,12 @@ async function main() {
         const contract = network.getContract('titrecontract');
 
         // Submit the specified transaction.
-        // createCertificate transaction - requires 9 argument, ex: ('createCertificate', 'CERT12', 'ABDEL', '1857469', 'NBE388507', '05/08/1999', 'NADOR', 'MASTER RH', 'A. Bien', '07/07/2021')
+       
 
-        // changeStudentName transaction - requires 2 args , ex: ('changeCarOwner', 'CERT12', 'Dave')
-        //await contract.submitTransaction('createTitre', 'TITRE30', 'Ibn Tofail', 'MA124567PO', '136 Rue 2 Hay Najah', 'ibntofail@gmail.com', '41', 'Kenitra', 'BIS');
+        // Initialize the ledger
         //await contract.submitTransaction('initLedger',[])
+
+        // Query titre8
         const response = await contract.submitTransaction('queryTitre','TITRE8');
         console.log(`Transaction has been evaluated, result is: ${response.toString()}`);
          //console.log('Transaction has been submitted');
@@ -51,9 +52,6 @@ async function main() {
          //console.log('Transaction has been submitted');
         //console.log(`Transaction has been evaluated, result is: ${response.toString()}`);
 
-        // const response = await contract.submitTransaction('changeStudentName', 'CERT2', 'MACRON');
-        // console.log('Transaction has been submitted');
-        //console.log(`Transaction has been evaluated, result is: ${response.toString()}`);
         
 
         // Disconnect from the gateway.

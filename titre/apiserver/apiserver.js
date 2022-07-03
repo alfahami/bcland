@@ -22,23 +22,28 @@ const fs = require('fs');
   //      const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
   app.set("view engine","pug");
 
+  // Setting up static folder
+
+  app.use('/static', express.static('views/public'))
+
+
   app.get('/api/', function (req, res) {
   
-      res.render('createcertificate');
+      res.render('createtitre');
   
   });
 
-  app.get('/api/addcertificate', function (req, res) {
-        res.render('createcertificate');
+  app.get('/api/addtitre', function (req, res) {
+        res.render('createtitre');
   });
 
   app.get('/api/', function (req, res) {
-        res.render('createcertificate');
+        res.render('createtitre');
   });
 
 
 
-app.get('/api/allcertificates', async function (req, res)  {
+app.get('/api/alltitres', async function (req, res)  {
     try {
 const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
@@ -62,15 +67,13 @@ const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizatio
         const network = await gateway.getNetwork('mychannel');
 
         // Get the contract from the network.
-        const contract = network.getContract('certificate');
+        const contract = network.getContract('titrecontract');
 
         // Evaluate the specified transaction.
-        // queryCar transaction - requires 1 argument, ex: ('queryCertificate', 'CERT4')
-        // queryAllCars transaction - requires no arguments, ex: ('queryAllCars')
-        const result = await contract.evaluateTransaction('queryAllCertificates');
+        const result = await contract.evaluateTransaction('queryAllTitres');
 	console.log(JSON.parse(result)[0]["Record"]);
         console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
-        res.render("allcertificates",{ list:JSON.parse(result)});
+        res.render("alltitres",{ list:JSON.parse(result)});
 } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);
         res.status(500).json({error: error});
@@ -132,6 +135,7 @@ var storage = multer.diskStorage({ //multers disk storage settings
                         return res.json({error_code:1,err_desc:err, data: null});
                     }
                     
+                    // Launching transactions 
                     for (const item of result) {
                         try {
                                 const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
@@ -156,14 +160,14 @@ var storage = multer.diskStorage({ //multers disk storage settings
                                         const network = await gateway.getNetwork('mychannel');
                                 
                                         // Get the contract from the network.
-                                        const contract = network.getContract('certificate');
+                                        const contract = network.getContract('titrecontract');
                                 // Submit the specified transaction.
                                         // createCertificate transaction - requires 8 argument, ex: ('createCertificate', 'CERT12', 'Honda', 'Accord', 'Black', 'Tom')
                                         // changeCarOwner transaction - requires 2 args , ex: ('changeStudentName', 'CERT10', 'HADI')
-                                        await contract.submitTransaction('createCertificate', item["certificateNumber"], item["studentFullName"], item["apogee"], item["cin"], item["birthDate"], item["birthPlace"], 
-                                        item["title"], item["honor"], item["graduationDate"]);
+                                        await contract.submitTransaction('createTitre', item["titreNumber"], item["fullName"], item["cin"], item["address"], item["email"], item["indice"], 
+                                        item["city_fonc"], item["pecial_indice"]);
                                         console.log('Transaction has been submitted');
-                                       // res.redirect('/api/query/' + req.body.certificateNumber)
+                                       // res.redirect('/api/query/' + req.body.titreNumber)
                                        
                                 
                                 // Disconnect from the gateway.
@@ -183,7 +187,7 @@ var storage = multer.diskStorage({ //multers disk storage settings
 
 
 
-app.post('/api/addcertificate', urlencodedParser, async function (req, res) {
+app.post('/api/addtitre', urlencodedParser, async function (req, res) {
     try {
 const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
@@ -207,14 +211,13 @@ const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizatio
         const network = await gateway.getNetwork('mychannel');
 
         // Get the contract from the network.
-        const contract = network.getContract('certificate');
+        const contract = network.getContract('titrecontract');
 // Submit the specified transaction.
         // createCertificate transaction - requires 8 argument, ex: ('createCertificate', 'CERT12', 'Honda', 'Accord', 'Black', 'Tom')
         // changeCarOwner transaction - requires 2 args , ex: ('changeStudentName', 'CERT10', 'HADI')
-        await contract.submitTransaction('createCertificate', req.body.certificateNumber, req.body.studentFullName, req.body.apogee, req.body.cin, req.body.birthDate, req.body.birthPlace, 
-        req.body.title, req.body.honor, req.body.graduationDate);
+        await contract.submitTransaction('createTitre', req.body.titreNumber, req.body.fullName, req.body.cin, req.body.address, req.body.email, req.body.indice, req.body.city_fonc, req.body.special_indice);
         console.log('Transaction has been submitted');
-        res.redirect('/api/query/' + req.body.certificateNumber)
+        res.redirect('/api/query/' + req.body.titreNumber)
 
 // Disconnect from the gateway.
         await gateway.disconnect();
@@ -224,7 +227,7 @@ const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizatio
     }
 })
 
-app.get('/api/query/:certificate_index', async function (req, res) {
+app.get('/api/query/:titre_index', async function (req, res) {
         try {
     const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
             const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
@@ -248,13 +251,13 @@ app.get('/api/query/:certificate_index', async function (req, res) {
             const network = await gateway.getNetwork('mychannel');
     
             // Get the contract from the network.
-            const contract = network.getContract('certificate');
+            const contract = network.getContract('titrecontract');
     // Evaluate the specified transaction.
             // queryCar transaction - requires 1 argument, ex: ('queryCar', 'CAR4')
             // queryAllCars transaction - requires no arguments, ex: ('queryAllCars')
-            const result = await contract.evaluateTransaction('queryCertificate', req.params.certificate_index);
+            const result = await contract.evaluateTransaction('queryTitre', req.params.titre_index);
             console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
-            res.render("certificate-details",{ certificate:JSON.parse(result)});
+            res.render("titre-details",{ certificate:JSON.parse(result)});
     } catch (error) {
             console.error(`Failed to evaluate transaction: ${error}`);
             res.status(500).json({error: error});
@@ -264,7 +267,7 @@ app.get('/api/query/:certificate_index', async function (req, res) {
     
 
 
-app.put('/api/changestudentname/:cert_index', async function (req, res) {
+app.put('/api/changetitreowner/:titre_index', async function (req, res) {
     try {
 const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
@@ -288,11 +291,9 @@ const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizatio
         const network = await gateway.getNetwork('mychannel'); 
 
         // Get the contract from the network.
-        const contract = network.getContract('certificate');
+        const contract = network.getContract('titrecontract');
 // Submit the specified transaction.
-        // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
-        // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR10', 'Dave')
-        await contract.submitTransaction('changeStudentName', req.params.cert_index, req.body.studentFullName);
+        await contract.submitTransaction('changeTitreOwner', req.params.titre_index, req.body.fullName);
         console.log('Transaction has been submitted');
         res.send('Transaction has been submitted');
 // Disconnect from the gateway.

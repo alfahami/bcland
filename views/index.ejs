@@ -1,0 +1,79 @@
+<!-- index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Titre Foncier</title>
+</head>
+
+<body>
+    <h1>Service de demande de certificat de propriété en ligne</h1>
+    <h2>Informations personnelles :</h2>
+
+    <form action="/confirmation" method="POST">
+        Nom : <input type="text" placeholder="Nom" name="nom" />
+        Prenom : <input type="text" placeholder="Prenom" name="prenom" />
+        Type d'identité :
+        <select name="typeid" id="first">
+            <option value=""> --Choix--</option>
+            <option valeur="cin">CIN</option>
+            <option valeur="passport">Passport</option>
+        </select>
+        Indentifiant : <input type="text" placeholder="Identifiant" name="id" />
+        Courrier Electronique : <input type="text" placeholder="Courrier Electronique" name="courrier" />
+        <h2>Informations Sur le Titre:</h2>
+        Indice:
+        <select name="indice" id="second">
+            <option value="">Choix de l'indice</option>
+            <option valeur="cin">0005</option>
+            <option valeur="passport">74555</option>
+        </select>
+
+        Numéro Titre: <input type="text" placeholder="numero" name="numero" />
+        <select name="indicespecial" id="thirth">
+            <option value="">indice spé</option>
+            <option valeur="cin">0005</option>
+            <option valeur="passport">74555</option>
+        </select>
+<br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <h2> Titre </h2>
+    <%= titrecrud2 %>
+   <ul class="titre">
+      <!-- Loop through quotes -->
+        <% for(var i=0; i < titrecrud2.length; i++) {%>
+            <li class="titre">
+                <!-- Output name from the iterated quote object -->
+                <span>
+                    <%= titrecrud2[i].nom %>
+                </span>:
+                <!-- Output quote from the iterated quote object -->
+                <span>
+                    <%= titrecrud2[i].prenom %>
+                </span>
+                <span>
+                    <%= titrecrud2[i].typeid %>
+                </span>
+                <span>
+                    <%= titrecrud2[i].id %>
+                </span>
+                <span>
+                    <%= titrecrud2[i].courrier %>
+                </span>
+                <span>
+                    <%= titrecrud2[i].indice%>
+                </span>
+                <span>
+                    <%= titrecrud2[i].numero %>
+                </span>
+                <span>
+                    <%= titrecrud2[i].indicespecial %>
+                </span>
+            </li>
+            <% } %>
+    </ul>
+</body>
+
+</html>

@@ -31,7 +31,11 @@ head
       |  appartient à 
       b #{titre["fullName"]}, CIN N° #{titre["cin"]}
       |  demeurant à  
-      b #{titre["address"]}
+      b #{titre["address"]}.
+    p.m-4 Cette attestation est délivrée pour servir et valoir ce que de droit.
     p.m-6.right Fait à 
-      b Rabat, le 24 Juillet 2022
+      b Rabat, le 
+          span= moment(updateDate).format('DD/MM/YYYY')
+
+      
     

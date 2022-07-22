@@ -8,6 +8,7 @@ head
   style 
     include public/css/A4.css
 
+
 .page
   h4.center Royaume du Maroc
   h4.center المملكة المغربية
@@ -18,6 +19,19 @@ head
 
   h3.center.mt-150.underline.mb-80 CERTIFICAT DE PROPORIETE
 
-  .mb-80 Le conservateur de la propriété foncière et des droits foncières de  soussigné, certifie que :
-    p.m-4 Le domaine nommé  
+  p Le conservateur de la propriété foncière et des droits foncières de 
+    b #{titre["city_fonc"]} 
+    | certifie que le titre numéro 
+    b #{titre["titreNumber"]} 
+    | dont :
+    p.m-4 Le domaine d'indice numéro 
+      b #{titre["indice"]} 
+      | avec comme indice spécial 
+      b #{titre["special_indice"]}
+      |  appartient à 
+      b #{titre["fullName"]}, CIN N° #{titre["cin"]}
+      |  demeurant à  
+      b #{titre["address"]}
+    p.m-6.right Fait à 
+      b Rabat, le 24 Juillet 2022
     

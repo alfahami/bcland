@@ -13,6 +13,8 @@ app.use(bodyParser.json());
 var xlsxtojson = require("xlsx-to-json");
 var xlstojson = require("xls-to-json");
 
+// For getting the date in pug
+app.locals.moment = require('moment');
 
 // Setting for Hyperledger Fabric
 const { Gateway,Wallets } = require('fabric-network');
@@ -253,12 +255,11 @@ app.get('/api/query/:titre_index', async function (req, res) {
     
             // Get the contract from the network.
             const contract = network.getContract('titrecontract');
-    // Evaluate the specified transaction.
-            // queryCar transaction - requires 1 argument, ex: ('queryCar', 'CAR4')
-            // queryAllCars transaction - requires no arguments, ex: ('queryAllCars')
+     // Evaluate the specified transaction.
+            
             const result = await contract.evaluateTransaction('queryTitre', req.params.titre_index);
             console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
-            res.render("titre-details",{ certificate:JSON.parse(result)});
+            res.render("titre-details",{ titre:JSON.parse(result)});
     } catch (error) {
             console.error(`Failed to evaluate transaction: ${error}`);
             res.status(500).json({error: error});

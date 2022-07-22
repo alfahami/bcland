@@ -27,6 +27,7 @@ a {
       width: 100%;
       background-color: inherit;
       color: inherit;
+      cursor: pointer;
   }
 
 .text-black {
@@ -95,7 +96,6 @@ a {
 a.btn-custom:hover{ 
   text-decoration: underline !important;
   color: #1b5d94;
-  font-weight: 700;
 }
 
 .btn-success:hover {background-color: #42587c;}
